@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState(0);
   
   const [error, setError] = useState(false);
 
@@ -80,7 +80,7 @@ const Signup = () => {
           <label><span>Number:</span></label>
             <input
             name="number"
-            type="text"
+            type="number"
             value={number}
             placeholder="Insert your email"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
