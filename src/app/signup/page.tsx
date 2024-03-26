@@ -40,7 +40,7 @@ const Signup = () => {
       <div className="flex-1">
         
         <div className="flex-col flex mb-1 mt-20">
-         <h1 className="text-3xl font-bold mb-4">Welcome to Driver Sign Up Page!</h1>
+         <h1 className="text-3xl font-bold mb-4 text-center">Welcome to Driver Sign Up Page!</h1>
          <label><span>Email:</span></label>
           <input
             name="email"
@@ -82,7 +82,7 @@ const Signup = () => {
             name="number"
             type="number"
             value={number}
-            placeholder="Insert your email"
+            placeholder="Insert your telephone number"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
             onChange={(e) => setNumber(parseInt(e.target.value))}
           />
