@@ -4,7 +4,7 @@ import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
 
-const signup = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -98,4 +98,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;

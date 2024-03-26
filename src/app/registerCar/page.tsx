@@ -4,7 +4,7 @@ import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
 
-const registerCar = () => {
+const RegisterCar = () => {
   const [plate, setPlate] = useState("");
   const [carName, setCarName] = useState("");
   const [brand, setBrand] = useState("");
@@ -98,4 +98,4 @@ const registerCar = () => {
   );
 };
 
-export default registerCar;
+export default RegisterCar;

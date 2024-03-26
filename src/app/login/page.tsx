@@ -4,7 +4,7 @@ import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
 
-const login = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -63,4 +63,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
