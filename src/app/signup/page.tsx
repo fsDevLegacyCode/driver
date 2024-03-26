@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
-import pg from 'pg';
+import { Client } from '@vercel/postgres';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,20 +13,20 @@ const Signup = () => {
   const [number, setNumber] = useState("");
   
   const [error, setError] = useState(false);
-  const { Pool } = pg;
-  // Create a new Pool instance with your PostgreSQL credentials
-  const pool = new Pool({
-    user: 'default',
-    host: 'ep-lingering-hat-a25415ra-pooler.eu-central-1.aws.neon.tech',
-    database: 'verceldb',
-    password: 'Z7XUnb5twGLq',
-    port: 5432, // Default PostgreSQL port
-  });
+
 
   const register = async () => {
     try {
+      // Create a new PostgreSQL client
+      const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false, // Only for development purposes
+        },
+      });
+
       // Connect to the database
-      const client = await pool.connect();
+      await client.connect();
 
       // Define the SQL query to insert user data
       const query = `
@@ -37,8 +37,8 @@ const Signup = () => {
       // Execute the query with the provided user data
       await client.query(query, [email, password, name, surname, number]);
 
-      // Release the client back to the pool
-      client.release();
+      // Close the client connection
+      await client.end();
 
       // Redirect to home page after successful registration
       window.location.href = "/home";
