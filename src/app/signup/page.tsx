@@ -23,7 +23,9 @@ const Signup = () => {
          VALUES ($1, $2, $3, $4, $5)`,
         [email, password, name, surname, number]
       );
-
+      const values = [email, password, name, surname, number];
+      console.log("VALUES:"+values);
+        console.log("QUERY"+sql.);
       // Redirect to home page after successful registration
       window.location.href = "/home";
     } catch (error) {
