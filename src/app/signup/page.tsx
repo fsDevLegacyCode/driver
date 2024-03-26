@@ -19,7 +19,7 @@ const Signup = () => {
     try {
       // Insert user data using sql.query
       await sql.query(
-        `INSERT INTO users (email, password, name, surname, number)
+        `INSERT INTO orinal_user (email, password, username, surname, number)
          VALUES ($1, $2, $3, $4, $5)`,
         [email, password, name, surname, number]
       );
