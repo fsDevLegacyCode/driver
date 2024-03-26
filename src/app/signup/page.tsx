@@ -25,7 +25,6 @@ const Signup = () => {
       );
       const values = [email, password, name, surname, number];
       console.log("VALUES:"+values);
-        console.log("QUERY"+sql.);
       // Redirect to home page after successful registration
       window.location.href = "/home";
     } catch (error) {
@@ -55,7 +54,7 @@ const Signup = () => {
           <label><span>Password:</span></label>
           <input
             name="password"
-            type="text"
+            type="password"
             value={password}
             placeholder="Insert your password"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
