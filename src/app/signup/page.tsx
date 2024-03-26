@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from "react";
 import { Button, ButtonLink } from "../components/button";
-import axios from "axios";
 import Link from "next/link";
 import { sql } from '@vercel/postgres';
 
@@ -10,7 +9,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [number, setNumber] = useState<number>(0);
+  const [number, setNumber] = useState<number>();
   
   const [error, setError] = useState(false);
 
@@ -18,13 +17,11 @@ const Signup = () => {
   const register = async () => {
     try {
       // Insert user data using sql.query
-      await sql.query(
-        `INSERT INTO orinal_user (email, password, username, surname, number)
-         VALUES ($1, $2, $3, $4, $5)`,
-        [email, password, name, surname, number]
-      );
-      const values = [email, password, name, surname, number];
-      console.log("VALUES:"+values);
+      await sql`
+        INSERT INTO users (email, password, name, surname, number)
+        VALUES (${email}, ${password}, ${name}, ${surname}, ${number})
+      `;
+  
       // Redirect to home page after successful registration
       window.location.href = "/home";
     } catch (error) {
