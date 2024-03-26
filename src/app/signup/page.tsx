@@ -22,7 +22,7 @@ const Signup = () => {
       INSERT INTO users (email, password, name, surname, number)
       VALUES (${email}, ${password}, ${name}, ${surname}, ${number})
     `;
-      await sql`${query}`;
+      await sql`${query} `;
       console.log(sql);
       // Redirect to home page after successful registration
       window.location.href = "/home";
