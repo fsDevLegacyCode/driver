@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
+import { Pool } from 'pg';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,17 +14,37 @@ const Signup = () => {
   
   const [error, setError] = useState(false);
 
+  // Create a new Pool instance with your PostgreSQL credentials
+  const pool = new Pool({
+    user: 'default',
+    host: 'ep-lingering-hat-a25415ra-pooler.eu-central-1.aws.neon.tech',
+    database: 'verceldb',
+    password: 'Z7XUnb5twGLq',
+    port: 5432, // Default PostgreSQL port
+  });
+
   const register = async () => {
     try {
-      const payload = { email: email, password: password, name: name, surname: surname, number: number , action: "signup" };
-      const res = await axios.post("http://www.driver-db.rf.gd/services.php", payload);
-      if (res.data.status) {
-        window.location.href = "/home";
-      } else {
-        setError(true);
-      }
+      // Connect to the database
+      const client = await pool.connect();
+
+      // Define the SQL query to insert user data
+      const query = `
+        INSERT INTO users (email, password, name, surname, number)
+        VALUES ($1, $2, $3, $4, $5)
+      `;
+
+      // Execute the query with the provided user data
+      await client.query(query, [email, password, name, surname, number]);
+
+      // Release the client back to the pool
+      client.release();
+
+      // Redirect to home page after successful registration
+      window.location.href = "/home";
     } catch (error) {
       console.error(error);
+      setError(true);
     }
   };
 

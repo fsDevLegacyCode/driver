@@ -1,23 +1,19 @@
-const { Client } = require('pg');
+import pg from 'pg';
 
-// Connection information
-const client = new Client({
-  user: 'your_username',
-  host: 'your_host',
-  database: 'your_database',
-  password: 'your_password',
-  port: 5432, // Default PostgreSQL port
+const { Pool } = pg;
+
+const pool = new Pool({
+    connectionString: "postgres://default:Z7XUnb5twGLq@ep-lingering-hat-a25415ra-pooler.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require",
 });
 
-// Connect to the PostgreSQL server
-client.connect()
-  .then(() => {
+pool.connect()
+  .then(client => {
     console.log('Connected to PostgreSQL server');
 
-    // SQL query to create a table
     const query = `
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
+        userID SERIAL,
         username VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL,
@@ -25,16 +21,38 @@ client.connect()
       )
     `;
 
-    // Execute the query
-    return client.query(query);
-  })
-  .then(() => {
-    console.log('Table created successfully');
+    CREATE TABLE IF NOT EXISTS cars (
+        id SERIAL PRIMARY KEY,
+        plate VARCHAR(30) UNIQUE NOT NULL,
+        name VARCHAR(255)  NOT NULL,
+        brand VARCHAR(255) NOT NULL,
+        gas VARCHAR(255) NOT NULL,
+        motor VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+
+      create table if not exists orinal_user(
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+
+    return client.query(query)
+      .then(() => {
+        console.log('Table created successfully');
+      })
+      .catch(err => {
+        console.error('Error creating table:', err);
+      })
+      .finally(() => {
+        // Release the client back to the pool
+        client.release();
+      });
   })
   .catch(err => {
-    console.error('Error creating table:', err);
+    console.error('Error connecting to PostgreSQL server:', err);
   })
   .finally(() => {
-    // Close the client
-    client.end();
+    // The pool will automatically end when the script exits
   });

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.7.2",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "express": "^4.19.1",
