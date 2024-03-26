@@ -14,14 +14,16 @@ const Signup = () => {
   const [error, setError] = useState(false);
 
 
+
   const register = async () => {
     try {
       // Insert user data using sql.query
-      await sql`
-        INSERT INTO users (email, password, name, surname, number)
-        VALUES (${email}, ${password}, ${name}, ${surname}, ${number})
-      `;
-  
+      const query = `
+      INSERT INTO users (email, password, name, surname, number)
+      VALUES (${email}, ${password}, ${name}, ${surname}, ${number})
+    `;
+      await sql`${query}`;
+      console.log(sql);
       // Redirect to home page after successful registration
       window.location.href = "/home";
     } catch (error) {
