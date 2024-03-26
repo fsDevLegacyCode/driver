@@ -10,7 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState<number>(0);
   
   const [error, setError] = useState(false);
 
@@ -84,7 +84,7 @@ const Signup = () => {
             value={number}
             placeholder="Insert your email"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
-            onChange={(e) => setNumber(e.target.value)}
+            onChange={(e) => setNumber(parseInt(e.target.value))}
           />
           <div className="flex justify-center gap-1 mt-1"> {/* Align button at the end */}
             <Link href="/login"><ButtonLink btnText="Go Back" className="w-32 h-10"></ButtonLink></Link>
