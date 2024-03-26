@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, ButtonLink } from "../components/button";
 import axios from "axios";
 import Link from "next/link";
-import { Pool } from 'pg';
+import pg from 'pg';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ const Signup = () => {
   const [number, setNumber] = useState("");
   
   const [error, setError] = useState(false);
-
+  const { Pool } = pg;
   // Create a new Pool instance with your PostgreSQL credentials
   const pool = new Pool({
     user: 'default',
