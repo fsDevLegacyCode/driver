@@ -53,7 +53,7 @@ const Signup = () => {
           <label><span>Password:</span></label>
           <input
             name="password"
-            type="password"
+            type="text"
             value={password}
             placeholder="Insert your password"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
@@ -80,7 +80,7 @@ const Signup = () => {
           <label><span>Number:</span></label>
             <input
             name="number"
-            type="number"
+            type="text"
             value={number}
             placeholder="Insert your email"
             className={error ? "bg-red-100 mb-1 p-2 rounded" : "mb-1 p-2 rounded"}
